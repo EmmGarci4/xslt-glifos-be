@@ -11,14 +11,32 @@
 <xsl:template match="minus"><minus><xsl:apply-templates/></minus></xsl:template>
 
  <xsl:template match="times">
- <xsl:apply-templates/>
+     <xsl:choose>
+        <xsl:when test="name(*[1]) = 'const'">
+         <times>
+         <const><xsl:value-of select="*[1]"/></const>
+          <xsl:apply-templates/>
+         </times>
+        </xsl:when>
+         <xsl:when test="name(*[1]) != 'const' and name(*[last()]) != 'const'">
+         <plus>
+         <times>
+         <xsl:copy-of select="*[1]"/>
+          <xsl:apply-templates select="*[last()]"/>
+         </times>
+         <times>
+         <xsl:copy-of select="*[last()]"/>
+          <xsl:apply-templates select="*[1]"/>
+         </times>
+         </plus>
+        </xsl:when>
+        </xsl:choose>    
+
   </xsl:template>
 
-   <xsl:template match="division">
-<xsl:apply-templates/>
-  
-
-  </xsl:template>
+<xsl:template match="division">
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template match="power">
   <times>
@@ -50,10 +68,10 @@
         </xsl:otherwise>
       </xsl:choose> 
     </times>
-  </xsl:template>
+</xsl:template>
 
- <xsl:template match="const"></xsl:template>
+ <xsl:template match="const"> </xsl:template>
 
-<xsl:template match="var"></xsl:template>
+<xsl:template match="var"> </xsl:template>
 
 </xsl:stylesheet>
