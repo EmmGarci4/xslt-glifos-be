@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivador Símolico XSLT</title>
+
+    <!-----importar CSS boostrap----->
+    <link rel="stylesheet" type="text/css" href="./assets/boostrap/css/bootstrap.min.css" />
+    <!----importar CSS----->
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Derivador Símbolico con XSLT</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-content col-6">
+                <code>
+                    <textarea id="input" placeholder="Función..."></textarea>
+                </code>
+                </textarea>
+            </div>
+            <div class="output-content col-6">
+                <code>
+                    <textarea id="output" placeholder="Derivada..."></textarea>
+                </code>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <button id="calc" type="button" class="btn btn-success"> Calcular </button>
+            </div>
+        </div>
+    </div>
+
+    <!----Mensaje de error-->
+    <div id="error-msg" class="alert alert-danger collapse" role="alert">
+        <p id="error-msg-content" class="float-left">Error</p>
+        <button type="button" id="closeAlert" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+    <!-----importar JQuery----->
+    <script type="text/javascript" src="./assets/jquery/jquery-3.5.1.min.js"></script>
+    <!-----importar JS boostrap----->
+    <script type="text/javascript" src="./assets/boostrap/js/bootstrap.min.js"></script>
+    <!-------importar main------>
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>

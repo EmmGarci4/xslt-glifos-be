@@ -9,18 +9,18 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 //rutas
-app.post('/',async (req,res)=>{
+app.post('/derivate',async (req,res)=>{
     try {
-        console.log(req.body)
-        let output = await transformXml(req.body.xmlText)   
-        res.status(200).send(output);
+        let output = await transformXml(req.body.xmlText)  
+        res.status(200).send({derivate:output});
     } catch (error) {
-        console.log("ALGO SALIO MAL")
-        console.log(error.message)
-        res.status(500).send({message:error.message});
+        //console.log(error.message)
+        res.status(500).send(error.message);
     }
 })
 
+
+app.use('/', express.static(__dirname + '/public'));
 
 //iniciando server
 http.listen(8080, () => {
