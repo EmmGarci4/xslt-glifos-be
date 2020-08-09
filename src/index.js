@@ -6,12 +6,13 @@ var transformXml = require('./services/transform-xml')
 
 //middlewares de bodyparser
 app.use(bodyParser.urlencoded({extended:false}));
-//app.use(bodyParser.xml());
+app.use(bodyParser.json());
 
 //rutas
-app.get('/',async (req,res)=>{
+app.post('/',async (req,res)=>{
     try {
-        let output = await transformXml(req)   
+        console.log(req.body)
+        let output = await transformXml(req.body.xmlText)   
         res.status(200).send(output);
     } catch (error) {
         console.log("ALGO SALIO MAL")

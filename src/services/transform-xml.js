@@ -3,10 +3,10 @@ const path = require('path')
 const SaxonJS = require('saxon-js')
 //xslt3 -t -xsl:function-derivate.xsl -export:function-derivate.sef.json -nogo
 
-async function transformXml(request){
+async function transformXml(xmlText){
     return await SaxonJS.transform({
         stylesheetFileName: __dirname+"/function-derivate.sef.json",
-        sourceFileName:  __dirname+"/function.xml",
+        sourceText:xmlText,
         destination: "serialized"
     }, "async").then(output=>output.principalResult)
 }
