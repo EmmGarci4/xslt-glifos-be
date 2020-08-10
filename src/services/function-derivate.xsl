@@ -48,19 +48,14 @@
               <!---divisor-->
               <minus>
               <times>
-              <xsl:apply-templates select="*[1]"/>
-              <xsl:copy-of select="*[last()]"/>
+              <xsl:apply-templates select="*[1]"/><xsl:copy-of select="*[last()]"/>
               </times>
               <times>
-              <xsl:copy-of select="*[1]"/>
-              <xsl:apply-templates select="*[last()]"/>
+              <xsl:copy-of select="*[1]"/><xsl:apply-templates select="*[last()]"/>
               </times>
               </minus>
                <!--divisor-->
-            <power>
-              <xsl:copy-of select="*[last()]"/>
-              <const>2</const>
-            </power>
+            <power> <xsl:copy-of select="*[last()]"/><const>2</const></power>
           </div>
         </xsl:when>
         <!---la derivada de una constante / constante es constante-->
@@ -81,8 +76,7 @@
         <xsl:when test="name(*[1]) = 'const' and name(*[last()]) != 'const'">
          <times>
             <xsl:copy-of select="*[last()]"/>
-            <times>
-            <const>-1</const>
+            <times> <const>-1</const>
             <div>
               <xsl:apply-templates select="*[last()]"/>
               <power>
@@ -93,33 +87,25 @@
             </times>
          </times>
         </xsl:when>
-        <xsl:otherwise>
-            <xsl:apply-templates/>  
-        </xsl:otherwise>
+        <xsl:otherwise> <xsl:apply-templates/>  </xsl:otherwise>
         </xsl:choose>
-
 </xsl:template>
 
 <xsl:template match="power">
-  <times>
+ <times> <times>
     <xsl:copy-of select="*[last()]"/> 
-
       <xsl:choose>
       <!---la derivada de una potencia es el -->
         <xsl:when test="name(*[last()]) != 'const'">
           <power>
               <xsl:copy-of select="*[1]"/>
-              <minus>
-                <xsl:copy-of select="*[last()]"/>
-                <const>1</const>
-              </minus>
+              <minus> <xsl:copy-of select="*[last()]"/><const>1</const></minus>
           </power>
         </xsl:when>
         <!---derivada de una potencia entera mayor a 2 = n*var elevado n-1-->
         <xsl:when test="name(*[last()]) = 'const' and *[last()]>2">
           <power>
-                <xsl:copy-of select="*[1]"/>
-                <const><xsl:value-of select="*[last()] -1"/></const>
+          <xsl:copy-of select="*[1]"/><const><xsl:value-of select="*[last()] -1"/></const>
           </power>
         </xsl:when>
         <!---derivada de una potencia entera igual a 2 = var-->
@@ -130,16 +116,13 @@
       <xsl:when test="name(*[last()]) = 'const' and *[last()]=1">  
           <const>1</const>
           </xsl:when>
-        <xsl:otherwise>
-               <xsl:apply-templates/>  
-        </xsl:otherwise>
+        <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
       </xsl:choose> 
     </times>
+    <xsl:apply-templates select="*[1]"/>
+    </times>
 </xsl:template>
-
 <!---aplicados para no mostrar solo valores-->
  <xsl:template match="const"></xsl:template>
-
 <xsl:template match="var"> </xsl:template>
-
 </xsl:stylesheet>
