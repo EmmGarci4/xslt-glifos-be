@@ -48,7 +48,7 @@
         <xsl:when test="name(*[last()]) = 'const' and *[last()]>2">
           <power>
                 <xsl:copy-of select="*[1]"/>
-                <const><xsl:value-of select="*[last()] -1"/></const>
+                <const</const>
           </power>
         </xsl:when>
         <xsl:when test="name(*[last()]) = 'const' and *[last()]=2">
@@ -70,15 +70,33 @@
 
 <xsl:template match="var"> </xsl:template>
 
-
+<xsl:value-of select="*[last()] -1"/>
           <xsl:apply-templates select="*[last()]"/>
-
+ <xsl:copy-of select="*[1]"/>
 
 
       <!---la derivada de una constante por una funcion es la constante por la derivada-->
         <xsl:when test="name(*[1]) = 'const'">
          <times>
-         <xsl:copy-of select="*[1]"/>
+        
           <xsl:apply-templates/>
+         </times>
+        </xsl:when>
+
+
+                <!---la derivada de una constante / funcion constante * f1-->
+        <xsl:when test="name(*[1]) = 'const' and name(*[last()]) != 'const'">
+         <times>
+            <xsl:copy-of select="*[last()]"/>
+            <times>
+            <const>-1</const>
+            <div>
+              <xsl:apply-templates select="*[last()]"/>
+              <power>
+                <xsl:copy-of select="*[last()]"/>
+                <const>2</const>
+              </power>
+            </div>
+            </times>
          </times>
         </xsl:when>

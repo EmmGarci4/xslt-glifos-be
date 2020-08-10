@@ -41,32 +41,63 @@
 </xsl:template>
 
 <xsl:template match="div">
-  <div>
-  <!---divisor-->
     <xsl:choose>
         <!---la derivada de una division es = (f1'f2 - f1f2')/f2 -> 2 -->
-         <xsl:when test="name(*[1]) != 'const' and name(*[last()]) != 'const'">
-         <minus>
+        <xsl:when test="name(*[1]) != 'const' and name(*[last()]) != 'const'">
+          <div>
+              <!---divisor-->
+              <minus>
+              <times>
+              <xsl:apply-templates select="*[1]"/>
+              <xsl:copy-of select="*[last()]"/>
+              </times>
+              <times>
+              <xsl:copy-of select="*[1]"/>
+              <xsl:apply-templates select="*[last()]"/>
+              </times>
+              </minus>
+               <!--divisor-->
+            <power>
+              <xsl:copy-of select="*[last()]"/>
+              <const>2</const>
+            </power>
+          </div>
+        </xsl:when>
+        <!---la derivada de una constante / constante es constante-->
+        <xsl:when test="name(*[1]) = 'const' and name(*[last()]) = 'const'">
+         <const><xsl:value-of select="*[1] / *[last()]"/> </const>
+        </xsl:when>
+        <!---la derivada de una funcion / constante es 1/constante * f'-->
+        <xsl:when test="name(*[1]) != 'const' and name(*[last()]) = 'const'">
          <times>
-         <xsl:apply-templates select="*[1]"/>
-         <xsl:copy-of select="*[last()]"/>
+           <div>
+            <const>1</const>
+            <xsl:copy-of select="*[1]"/>
+           </div>
+           <xsl:apply-templates select="*[last()]"/>
          </times>
+        </xsl:when>
+        <!---la derivada de una constante / funcion constante * f1-->
+        <xsl:when test="name(*[1]) = 'const' and name(*[last()]) != 'const'">
          <times>
-         <xsl:copy-of select="*[1]"/>
-         <xsl:apply-templates select="*[last()]"/>
+            <xsl:copy-of select="*[last()]"/>
+            <times>
+            <const>-1</const>
+            <div>
+              <xsl:apply-templates select="*[last()]"/>
+              <power>
+                <xsl:copy-of select="*[last()]"/>
+                <const>2</const>
+              </power>
+            </div>
+            </times>
          </times>
-         </minus>
         </xsl:when>
         <xsl:otherwise>
             <xsl:apply-templates/>  
         </xsl:otherwise>
         </xsl:choose>
-      <!--divisor-->
-      <power>
-        <xsl:copy-of select="*[last()]"/>
-        <const>2</const>
-      </power>
-  </div>
+
 </xsl:template>
 
 <xsl:template match="power">
