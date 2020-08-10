@@ -20,4 +20,14 @@ Runs the app in the development mode.
       xmlText="XML CODE"
     }
 </code>
-    
+Sintaxis:
+<ul>
+    <li><code>&lt;f&gt;&lt;/f&gt;</code>: Función</li>
+    <li><code>&lt;plus&gt;&lt;/plus&gt;</code>: Suma</li>
+    <li><code>&lt;minus&gt;&lt;/minus&gt;</code>: Resta</li>
+    <li><code>&lt;times&gt;&lt;/times&gt;</code>: Multiplicación</li>
+    <li><code>&lt;power&gt;&lt;/power&gt;</code>: Potencia</li>
+    <li><code>&lt;div&gt;&lt;/div&gt;</code>: División</li>
+</ul>
+    <p>**Las operaciones están compuestas por dos operandos</p>
+
