@@ -1,4 +1,5 @@
 <g>
+  <plus>
   <times>
     <const>5</const>
     <power>
@@ -6,4 +7,5 @@
     <const>10</const>
     </power>
   </times>
+  </plus>
 </g>
